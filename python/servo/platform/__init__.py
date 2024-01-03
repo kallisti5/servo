@@ -26,6 +26,8 @@ def host_platform():
         os_type = "pc-windows-msvc"
     elif os_type == "freebsd":
         os_type = "unknown-freebsd"
+    elif os_type == "haiku":
+        os_type = "unknown-haiku"
     else:
         os_type = "unknown"
     return os_type
@@ -34,7 +36,7 @@ def host_platform():
 def host_triple():
     os_type = host_platform()
     cpu_type = platform.machine().lower()
-    if cpu_type in ["i386", "i486", "i686", "i768", "x86"]:
+    if cpu_type in ["i386", "i486", "i686", "i768", "x86", "BePC"]:
         cpu_type = "i686"
     elif cpu_type in ["x86_64", "x86-64", "x64", "amd64"]:
         cpu_type = "x86_64"
@@ -65,6 +67,9 @@ def get():
     elif "linux-gnu" in triple:
         from .linux import Linux
         __platform__ = Linux(triple)
+    elif "unknown-haiku" in triple:
+        from .haiku import Haiku
+        __platform__ = Haiku(triple)
     elif "apple-darwin" in triple:
         from .macos import MacOS
         __platform__ = MacOS(triple)

@@ -22,6 +22,7 @@ class Base:
         self.is_windows = False
         self.is_linux = False
         self.is_macos = False
+        self.is_haiku = False
 
     def set_gstreamer_environment_variables_if_necessary(
         self, env: Dict[str, str], cross_compilation_target: Optional[str], check_installation=True
